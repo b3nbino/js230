@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <script>
+      $(() => {
+        $("form").on("submit", (event) => {
+          event.preventDefault();
+          let input = $("input[type=text]").val();
+          $(document)
+            .off("keypress")
+            .on("keypress", (event) => {
+              if (event.key !== input) return;
+              $("a").trigger("click");
+            });
+        });
+
+        $("a").on("click", (event) => {
+          event.preventDefault();
+          $("#accordion").slideToggle();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <form action="#">
+      <input id="key" type="text" maxlength="1" />
+      <button type="submit">Submit</button>
+    </form>
+    <a href="#">Toggle Accordion</a>
+    <div id="accordion">
+      <p>Hello world.</p>
+    </div>
+  </body>
+</html>

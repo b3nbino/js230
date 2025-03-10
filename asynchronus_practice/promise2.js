@@ -1,3 +1,5 @@
+const res = require("express/lib/response");
+
 function downloadFilePromise(callback) {
   return new Promise((resolve, reject) => {
     console.log("Downloading file...");
@@ -17,37 +19,28 @@ function processDataPromise(arr, callback) {
   });
 }
 
-function flakyService() {
-  return new Promise((resolve, reject) => {
-    let randNum = Math.random();
-    if (randNum > 0.5) {
-      resolve("Operation successful");
-    } else {
-      reject("Operation failed");
-    }
-  })
-    .then(console.log)
-    .catch(console.error);
-}
+// let flakyService = new Promise((resolve, reject) => {
+//   let randNum = Math.random();
 
-// flakyService();
+//   if (randNum > 0.5) {
+//     resolve("Operation successful!");
+//   } else {
+//     reject("Operation failed...");
+//   }
+// })
+// .then(console.log)
+// .catch(console.error);
 
-function operation() {
-  return new Promise((resolve) => {
-    console.log("Operation started");
-    setTimeout(() => {
-      resolve("Operation complete");
-    }, 1000);
-  });
-}
+// let cleanup = new Promise((resolve) => resolve("Operation complete")).finally(
+//   () => {
+//     console.log("Starting cleanup...");
+//     setTimeout(() => {
+//       console.log("Cleanup complete!");
+//     }, 5000);
+//   }
+// );
 
-operation()
-  .then(console.log)
-  .finally(() => {
-    console.log("Cleaning up resources...");
-  });
-
-Promise.resolve(7)
+let chain = new Promise((resolve) => resolve(5))
   .then((num) => num * 2)
   .then((num) => num + 5)
-  .then((result) => console.log(result));
+  .then(console.log);

@@ -14,7 +14,9 @@ main {
   background: #333333;
 }
 
-h1 { text-align: center; }
+h1 {
+  text-align: center;
+}
 
 img {
   display: block;
@@ -57,4 +59,34 @@ li {
 
 li img {
   border: 3px solid #ffffff;
+}
+
+.selected {
+  border: 3px solid rgb(0, 119, 255);
+}
+
+.fade-in-image {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-out-image {
+  animation: fadeOut 0.5s;
 }

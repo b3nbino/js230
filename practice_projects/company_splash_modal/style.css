@@ -1,0 +1,174 @@
+@import url(./whitespace-reset.css);
+
+body {
+  background-image: url(./images/bg_body.gif);
+  font: normal 16px "Nunito", sans-serif;
+  color: #45494d;
+  line-height: 1.5rem;
+}
+
+header,
+main,
+footer {
+  min-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  padding: 160px 0 50px 0;
+  /* margin-bottom: 125px; */
+}
+
+header nav {
+  padding-top: 127px;
+}
+
+nav li a {
+  color: #cacaca;
+  font-size: 19px;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+nav li a.active {
+  color: #5f9bd7;
+}
+
+main {
+  box-sizing: border-box;
+  background-color: white;
+}
+
+section {
+  text-align: center;
+  padding: 0px 94px 80px 94px;
+}
+
+main section:first-child {
+  padding-top: 120px;
+}
+
+main section:last-child {
+  padding-bottom: 50px;
+}
+
+section h2 {
+  color: #45494d;
+  font-size: 25px;
+  padding-bottom: 40px;
+}
+
+section h3 {
+  color: #3e59b2;
+  padding: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+section p {
+  width: 800px;
+  margin: 0 auto;
+}
+
+footer {
+  background-color: #e7e7e7;
+  padding: 34px 0;
+}
+
+ul {
+  width: 100%;
+  text-align: center;
+}
+
+ul li {
+  display: inline-block;
+}
+
+ul li a {
+  text-align: center;
+  padding: 25px;
+  margin: 0 61px;
+}
+
+footer p {
+  color: #b2b2b2;
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 25px 0;
+}
+
+section img {
+  padding: 0;
+  padding-bottom: 60px;
+}
+
+li figure {
+  padding: 0 30px;
+}
+
+li figcaption {
+  font-size: 17px;
+  color: #3e59b2;
+  padding-bottom: 220px;
+}
+
+.modal {
+  display: none;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  left: 50%;
+  width: 800px;
+  margin-left: -400px;
+  padding: 20px;
+  height: 525px;
+  z-index: 3;
+}
+
+.modalContent {
+  box-sizing: border-box;
+  padding: 60px;
+}
+
+.modal a {
+  display: block;
+  text-align: right;
+}
+
+.modal h1 {
+  display: inline-block;
+  color: #3e59b2;
+  font-size: 24px;
+  font-family: sans-serif;
+  font-weight: normal;
+  vertical-align: top;
+  margin-top: 45px;
+}
+
+#modalContent img {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.modal p {
+  font-family: sans-serif;
+  font-size: 20px;
+  color: #45494d;
+  text-align: justify;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none;
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}

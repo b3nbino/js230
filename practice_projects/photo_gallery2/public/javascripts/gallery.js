@@ -10,8 +10,82 @@ $(() => {
 
   let photos;
   let currPhotoId;
-  let $prevButton = $(".prev");
-  let $nextButton = $(".next");
+
+  class Slideshow {
+    constructor() {
+      this.$currPhoto = this.getPhoto(currPhotoId);
+      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(currPhotoId));
+      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(currPhotoId));
+      this.bindEvents();
+    }
+
+    //Adds event listeners to previous and next buttons
+    bindEvents() {
+      $(".prev").on("click", this.goToPrevPhoto.bind(this));
+      $(".next").on("click", this.goToNextPhoto.bind(this));
+    }
+
+    //Returns jQuery element containing only the figure element with the passed in id
+    getPhoto(photoId) {
+      return $("figure").filter((_, fig) => Number(fig.dataset.id) === photoId);
+    }
+
+    //Returns id of previous photo
+    getPrevPhotoId(currId) {
+      for (let i = 0; i < photos.length; i++) {
+        if (photos[i].id === currId) {
+          return photos[i - 1]
+            ? photos[i - 1].id
+            : photos[photos.length - 1].id;
+        }
+      }
+    }
+
+    //Returns id of next photo
+    getNextPhotoId(currId) {
+      for (let i = 0; i < photos.length; i++) {
+        if (photos[i].id === currId) {
+          return photos[i + 1] ? photos[i + 1].id : photos[0].id;
+        }
+      }
+    }
+
+    goToPrevPhoto(event) {
+      event.preventDefault();
+
+      //Perform photo swap
+      this.$currPhoto.fadeOut();
+      this.$prevPhoto.fadeIn();
+
+      //Change currPhotoId and object properties to reflect desired changes to DOM
+      currPhotoId = this.getNextPhotoId(currPhotoId);
+      this.$currPhoto = this.getPhoto(currPhotoId);
+      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(currPhotoId));
+      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(currPhotoId));
+
+      //Perform photo info and comments swap
+      renderHeader(currPhotoId);
+      renderComments(currPhotoId);
+    }
+
+    goToNextPhoto(event) {
+      event.preventDefault();
+
+      //Perform photo swap
+      this.$currPhoto.fadeOut();
+      this.$nextPhoto.fadeIn();
+
+      //Change currPhotoId and object properties to reflect desired changes to DOM
+      currPhotoId = this.getNextPhotoId(currPhotoId);
+      this.$currPhoto = this.getPhoto(currPhotoId);
+      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(currPhotoId));
+      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(currPhotoId));
+
+      //Perform photo info and comments swap
+      renderHeader(currPhotoId);
+      renderComments(currPhotoId);
+    }
+  }
 
   //Gets and renders header of specified photo
   function renderHeader(photoId) {
@@ -34,35 +108,12 @@ $(() => {
     });
   }
 
-  //Returns jQuery element containing only the figure element with the passed in id
-  function getPhoto(photoId) {
-    return $("figure").filter((_, fig) => Number(fig.dataset.id) === photoId);
-  }
-
-  //Returns id of photo previous to the id passed in
-  function getPrevPhotoId(currId) {
-    for (let i = 0; i < photos.length; i++) {
-      if (photos[i].id === currId) {
-        return photos[i - 1] ? photos[i - 1].id : photos[photos.length - 1].id;
-      }
-    }
-  }
-
-  //Returns id of photo next to the id passed in
-  function getNextPhotoId(currId) {
-    for (let i = 0; i < photos.length; i++) {
-      if (photos[i].id === currId) {
-        return photos[i + 1] ? photos[i + 1].id : photos[0].id;
-      }
-    }
-  }
-
   //Inital render html for slides, header, and comments
   $.ajax("/photos")
     .done((response) => {
       photos = response;
 
-      //Render all photos slides
+      //Render all photo slides
       let photosHtml = photosTemplate({ photos });
       document.getElementById("slides").innerHTML = photosHtml;
 
@@ -70,50 +121,11 @@ $(() => {
       currPhotoId = photos[0].id;
       renderHeader(currPhotoId);
       renderComments(currPhotoId);
+
+      //Enable slideshow functionality
+      let slideshow = new Slideshow();
     })
     .fail(() => {
       console.error("Request unsuccessful: GET /photos");
     });
-
-  $prevButton.on("click", (event) => {
-    event.preventDefault();
-
-    //Get the current photo
-    let $currPhoto = getPhoto(currPhotoId);
-
-    //Change currPhotoId to reflect desired changes to DOM
-    currPhotoId = getPrevPhotoId(currPhotoId);
-
-    //Get the previous photo
-    let $prevPhoto = getPhoto(currPhotoId);
-
-    //Perform photo swap
-    $currPhoto.fadeOut();
-    $prevPhoto.fadeIn();
-
-    //Perform photo info and comments swap
-    renderHeader(currPhotoId);
-    renderComments(currPhotoId);
-  });
-
-  $nextButton.on("click", (event) => {
-    event.preventDefault();
-
-    //Get the current photo
-    let $currPhoto = getPhoto(currPhotoId);
-
-    //Change currPhotoId to reflect desired changes to DOM
-    currPhotoId = getNextPhotoId(currPhotoId);
-
-    //Get the previous photo
-    let $nextPhoto = getPhoto(currPhotoId);
-
-    //Perform photo swap
-    $currPhoto.fadeOut();
-    $nextPhoto.fadeIn();
-
-    //Perform photo info and comments swap
-    renderHeader(currPhotoId);
-    renderComments(currPhotoId);
-  });
 });

@@ -9,13 +9,13 @@ $(() => {
   );
 
   let photos;
-  let currPhotoId;
 
   class Slideshow {
-    constructor() {
-      this.$currPhoto = this.getPhoto(currPhotoId);
-      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(currPhotoId));
-      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(currPhotoId));
+    constructor(currPhotoId) {
+      this.currPhotoId = currPhotoId;
+      this.$currPhoto = this.getPhoto(this.currPhotoId);
+      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(this.currPhotoId));
+      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(this.currPhotoId));
       this.bindEvents();
     }
 
@@ -31,9 +31,9 @@ $(() => {
     }
 
     //Returns id of previous photo
-    getPrevPhotoId(currId) {
+    getPrevPhotoId() {
       for (let i = 0; i < photos.length; i++) {
-        if (photos[i].id === currId) {
+        if (photos[i].id === this.currPhotoId) {
           return photos[i - 1]
             ? photos[i - 1].id
             : photos[photos.length - 1].id;
@@ -42,9 +42,9 @@ $(() => {
     }
 
     //Returns id of next photo
-    getNextPhotoId(currId) {
+    getNextPhotoId() {
       for (let i = 0; i < photos.length; i++) {
-        if (photos[i].id === currId) {
+        if (photos[i].id === this.currPhotoId) {
           return photos[i + 1] ? photos[i + 1].id : photos[0].id;
         }
       }
@@ -57,15 +57,15 @@ $(() => {
       this.$currPhoto.fadeOut();
       this.$prevPhoto.fadeIn();
 
-      //Change currPhotoId and object properties to reflect desired changes to DOM
-      currPhotoId = this.getNextPhotoId(currPhotoId);
-      this.$currPhoto = this.getPhoto(currPhotoId);
-      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(currPhotoId));
-      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(currPhotoId));
+      //Change object properties to reflect desired changes to DOM
+      this.currPhotoId = this.getPrevPhotoId();
+      this.$currPhoto = this.getPhoto(this.currPhotoId);
+      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId());
+      this.$nextPhoto = this.getPhoto(this.getNextPhotoId());
 
       //Perform photo info and comments swap
-      renderHeader(currPhotoId);
-      renderComments(currPhotoId);
+      renderHeader(this.currPhotoId);
+      renderComments(this.currPhotoId);
     }
 
     goToNextPhoto(event) {
@@ -75,15 +75,15 @@ $(() => {
       this.$currPhoto.fadeOut();
       this.$nextPhoto.fadeIn();
 
-      //Change currPhotoId and object properties to reflect desired changes to DOM
-      currPhotoId = this.getNextPhotoId(currPhotoId);
-      this.$currPhoto = this.getPhoto(currPhotoId);
-      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId(currPhotoId));
-      this.$nextPhoto = this.getPhoto(this.getNextPhotoId(currPhotoId));
+      //Change and object properties to reflect desired changes to DOM
+      this.currPhotoId = this.getNextPhotoId();
+      this.$currPhoto = this.getPhoto(this.currPhotoId);
+      this.$prevPhoto = this.getPhoto(this.getPrevPhotoId());
+      this.$nextPhoto = this.getPhoto(this.getNextPhotoId());
 
       //Perform photo info and comments swap
-      renderHeader(currPhotoId);
-      renderComments(currPhotoId);
+      renderHeader(this.currPhotoId);
+      renderComments(this.currPhotoId);
     }
   }
 
@@ -118,12 +118,11 @@ $(() => {
       document.getElementById("slides").innerHTML = photosHtml;
 
       //Render current (1st) photo header and comments
-      currPhotoId = photos[0].id;
-      renderHeader(currPhotoId);
-      renderComments(currPhotoId);
+      renderHeader(photos[0].id);
+      renderComments(photos[0].id);
 
       //Enable slideshow functionality
-      let slideshow = new Slideshow();
+      let slideshow = new Slideshow(photos[0].id);
     })
     .fail(() => {
       console.error("Request unsuccessful: GET /photos");

@@ -3,10 +3,8 @@ $(() => {
   let photosTemplate = Handlebars.compile($("#photos").html());
   let photoInfoTemplate = Handlebars.compile($("#photo_information").html());
   let photoCommentsTemplate = Handlebars.compile($("#photo_comments").html());
-  let photoCommentPartial = Handlebars.registerPartial(
-    "comment",
-    $("#photo_comment").html()
-  );
+  let commentTemplate = Handlebars.compile($("#photo_comment").html());
+  Handlebars.registerPartial("comment", $("#photo_comment").html());
 
   let photos;
 
@@ -123,27 +121,41 @@ $(() => {
 
       //Enable slideshow functionality
       let slideshow = new Slideshow(photos[0].id);
-
-      //Like and favorite event handlers
-      $("#photo_header").on("click", "a", (event) => {
-        event.preventDefault();
-        let button = event.target;
-        let url = button.getAttribute("href");
-
-        $.ajax(url, {
-          method: "POST",
-          contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-          data: "photo_id=" + slideshow.currPhotoId,
-        }).done((response) => {
-          button.textContent = button.textContent.replace(
-            /\d+/,
-            response.total
-          );
-          $.ajax("/photos").done((r) => (photos = r));
-        });
-      });
     })
     .fail(() => {
       console.error("Request unsuccessful: GET /photos");
     });
+
+  //Like and favorite event handlers
+  $("#photo_header").on("click", "a", (event) => {
+    event.preventDefault();
+    let button = event.target;
+    let url = button.getAttribute("href");
+
+    $.ajax(url, {
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      data: "photo_id=" + button.dataset.id,
+    }).done((response) => {
+      button.textContent = button.textContent.replace(/\d+/, response.total);
+      $.ajax("/photos").done((r) => (photos = r));
+    });
+  });
+
+  let $form = $("#comments > form");
+  $form.on("submit", (event) => {
+    event.preventDefault();
+    let data = $form.serialize();
+
+    $.ajax("/comments/new", {
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      data,
+    }).done((response) => {
+      let newComment = $(commentTemplate(response));
+
+      $("#comments > ul").append(newComment);
+      document.querySelector("#comments > form").reset();
+    });
+  });
 });

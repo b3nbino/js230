@@ -95,6 +95,35 @@ $(() => {
     //Create and render header html
     let headerHtml = photoInfoTemplate(photoJson);
     document.getElementById("photo_header").innerHTML = headerHtml;
+
+    //Like and favorite event handlers
+    $(".like").on("click", (event) => {
+      event.preventDefault();
+      let likeButton = event.currentTarget;
+
+      $.ajax("/photos/like", {
+        method: "POST",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data: "photo_id=" + photoId,
+      }).done((response) => {
+        likeButton.textContent = `♡ ${response.total} Likes`;
+        photoJson.likes = response.total;
+      });
+    });
+
+    $(".favorite").on("click", (event) => {
+      event.preventDefault();
+      let favoriteButton = event.currentTarget;
+
+      $.ajax("/photos/favorite", {
+        method: "POST",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data: "photo_id=" + photoId,
+      }).done((response) => {
+        favoriteButton.textContent = `☆ ${response.total} Favorites`;
+        photoJson.favorites = response.total;
+      });
+    });
   }
 
   //Gets and renders comment section of specified photo

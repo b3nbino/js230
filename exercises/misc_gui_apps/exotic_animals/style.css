@@ -8,20 +8,21 @@ body {
   background-color: darkcyan;
   color: white;
   font-family: "Courier New", Courier, monospace;
+  text-align: center;
 }
 
 main {
   box-sizing: border-box;
-  text-align: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 150px;
+  padding: 0 50px;
 }
 
 main h1 {
   width: 100%;
-  margin: 50px 0px;
+  margin: 25px 0px;
 }
 
 main figure {
@@ -37,4 +38,9 @@ img {
 
 figcaption {
   display: none;
+  position: absolute;
+  box-sizing: border-box;
+  width: 25%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
 }

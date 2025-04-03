@@ -76,6 +76,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function renderCars(carsArr) {
+    carsArr.forEach((car) => {
+      let container = document.createElement("div");
+      container.classList.add("container");
+
+      let img = document.createElement("img");
+      img.setAttribute("src", car.image);
+      img.setAttribute("alt", car.model);
+
+      let h2 = document.createElement("h2");
+      h2.textContent = car.make + " " + car.model;
+
+      let yearP = document.createElement("p");
+      yearP.textContent = "Year: " + car.year;
+
+      let priceP = document.createElement("p");
+      priceP.textContent = "Price: $" + car.price;
+
+      let buyButton = document.createElement("a");
+      buyButton.setAttribute("href", "#");
+      buyButton.textContent = "Buy";
+
+      container.appendChild(img);
+      container.appendChild(h2);
+      container.appendChild(yearP);
+      container.appendChild(priceP);
+      container.appendChild(buyButton);
+
+      main.appendChild(container);
+    });
+  }
+
   //Get unique properties as arrays
   let makes = getUniquePropertyArr(cars, "make").sort();
   let models = getUniquePropertyArr(cars, "model").sort();
@@ -88,33 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
   createOptions(prices).forEach((opt) => priceSelect.appendChild(opt));
   createOptions(years).forEach((opt) => yearSelect.appendChild(opt));
 
-  cars.forEach((car) => {
-    let container = document.createElement("div");
-    container.classList.add("container");
-
-    let img = document.createElement("img");
-    img.setAttribute("src", car.image);
-    img.setAttribute("alt", car.model);
-
-    let h2 = document.createElement("h2");
-    h2.textContent = car.make + " " + car.model;
-
-    let yearP = document.createElement("p");
-    yearP.textContent = "Year: " + car.year;
-
-    let priceP = document.createElement("p");
-    priceP.textContent = "Price: $" + car.price;
-
-    let buyButton = document.createElement("a");
-    buyButton.setAttribute("href", "#");
-    buyButton.textContent = "Buy";
-
-    container.appendChild(img);
-    container.appendChild(h2);
-    container.appendChild(yearP);
-    container.appendChild(priceP);
-    container.appendChild(buyButton);
-
-    main.appendChild(container);
-  });
+  //Create and add cars
+  renderCars(cars);
 });

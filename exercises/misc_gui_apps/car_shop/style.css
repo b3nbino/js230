@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+header {
+  box-sizing: border-box;
+  background-color: #b7d1a3;
+  color: #fcf7d3;
+  padding: 12px;
+}
+
+header h1 {
+  margin: 12px 0;
+  font-size: 24px;
+}
+
+header form select,
+header form button {
+  padding: 4px;
+  border: 1px solid #fcf7d3;
+  border-radius: 5px;
+  background-color: #b7d1a3;
+  color: #fcf7d3;
+  margin-right: 12px;
+}
+
+header form select:focus {
+  border-color: #dee8be;
+}
+
+header form button:hover {
+  cursor: pointer;
+}
+
+main {
+  background-color: #dee8be;
+  box-sizing: border-box;
+  padding: 24px 24px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.container {
+  background-color: #fcf7d3;
+  color: #5e3929;
+  width: 200px;
+  padding: 12px;
+  margin: 0 12px 12px 0px;
+  border-radius: 10px;
+}
+
+.container img {
+  width: 100%;
+}
+
+.container h2 {
+  font-size: 18px;
+}
+
+.container p {
+  font-size: 14px;
+}
+
+.container a {
+  text-decoration: none;
+  background-color: #b7d1a3;
+  color: #fcf7d3;
+  padding: 3px 8px;
+  border-radius: 10px;
+}

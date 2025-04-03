@@ -94,3 +94,29 @@ section ul li a {
   z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
 }
+
+#contextMenu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #cdc9a5;
+  padding: 10px 0;
+  border: 2px dashed #5e3929;
+  border-radius: 5px;
+}
+
+#contextMenu li {
+  list-style-type: none;
+  padding: 6px 10px;
+}
+
+#contextMenu li:hover {
+  background-color: #8b8970;
+  color: #fcf7d3;
+}
+
+#contextMenu a {
+  color: #5e3929;
+  text-decoration: none;
+}

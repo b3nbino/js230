@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let ul = document.getElementById("todoList").querySelector("ul");
   let dialogue = document.getElementById("dialogue");
   let overlay = document.getElementById("overlay");
+  let menu = document.getElementById("contextMenu");
   let clickedId;
 
   function showDialogue() {
@@ -37,6 +38,21 @@ document.addEventListener("DOMContentLoaded", () => {
     dialogue.style.display = "none";
   }
 
+  function hideContext() {
+    menu.style.display = "none";
+  }
+
+  function deleteTodo(id) {
+    let todosLis = ul.querySelectorAll("li");
+
+    for (let i = 0; i < todosLis.length; i++) {
+      if (todosLis[i].dataset.id === id) {
+        todosLis[i].remove();
+      }
+    }
+  }
+
+  //Add todos
   todos.forEach((todo) => {
     //Create li, fill with text node and close button link
     let listItem = document.createElement("li");
@@ -54,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ul.appendChild(listItem);
   });
 
+  //Show dialogue when clicking "X"
   ul.addEventListener("click", (event) => {
     if (event.target.tagName !== "A") return;
 
@@ -64,21 +81,43 @@ document.addEventListener("DOMContentLoaded", () => {
     showDialogue();
   });
 
-  overlay.addEventListener("click", hideDialogue);
+  //Display context menu
+  ul.addEventListener("contextmenu", (event) => {
+    if (event.target.tagName !== "LI") return;
 
+    event.preventDefault();
+
+    //Show context menu at mouse position
+    menu.style.display = "block";
+    menu.style.top = event.clientY.toString() + "px";
+    menu.style.left = event.clientX.toString() + "px";
+
+    clickedId = event.target.dataset.id;
+  });
+
+  //Hide context menu
+  document.addEventListener("click", hideContext);
+
+  //Remove todo when yes is clicked in dialogue or close when no is clicked
   dialogue.addEventListener("click", (event) => {
     if (event.target.tagName !== "A") return;
 
     if (event.target.classList.contains("yes")) {
-      let todosLis = document.querySelectorAll("li");
-
-      for (let i = 0; i < todosLis.length; i++) {
-        if (todosLis[i].dataset.id === clickedId) {
-          todosLis[i].remove();
-        }
-      }
+      deleteTodo(clickedId);
     }
 
     hideDialogue();
+  });
+
+  //Hide dialogue when overlay is clicked
+  overlay.addEventListener("click", hideDialogue);
+
+  //Show confirmation dialogue when "Delete Todo" is clicked
+  menu.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (event.target.textContent === "Delete Todo") {
+      showDialogue();
+    }
   });
 });

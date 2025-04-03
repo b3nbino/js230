@@ -50,6 +50,10 @@ main {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   background-color: #fcf7d3;
   color: #5e3929;
   width: 200px;
@@ -60,6 +64,7 @@ main {
 
 .container img {
   width: 100%;
+  border-radius: 10px;
 }
 
 .container h2 {

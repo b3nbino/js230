@@ -51,6 +51,7 @@ const cars = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+  //UI Elements
   let filterForm = document.querySelector("#filter");
   let main = document.querySelector("main");
 
@@ -60,12 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let priceSelect = document.getElementById("price");
   let yearSelect = document.getElementById("year");
 
+  //Makes an array of the desired property from an array of objects where each value is unique
   function getUniquePropertyArr(array, property) {
     return array
       .map((obj) => obj[property])
       .filter((prop, idx, arr) => idx === arr.indexOf(prop));
   }
 
+  //Makes option elements from an array of strings
   function createOptions(arr) {
     return arr.map((opt) => {
       let option = document.createElement("option");
@@ -76,42 +79,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  //Returns a filtered version of the cars array based on the selections object passed in
   function getFilteredCars(selections) {
     let result = cars.slice();
 
-    if (selections.make !== "All") {
-      console.log(selections.make);
-
+    if (selections.make !== "all") {
       result = result.filter(
         (obj) => obj.make.toLowerCase() === selections.make
       );
     }
 
-    if (selections.model !== "All") {
+    if (selections.model !== "all") {
       result = result.filter(
         (obj) => obj.model.toLowerCase() === selections.model
       );
     }
 
-    if (selections.price !== "All") {
+    if (selections.price !== "all") {
       result = result.filter((obj) => obj.price === Number(selections.price));
     }
 
-    if (selections.year !== "All") {
+    if (selections.year !== "all") {
       result = result.filter((obj) => obj.year === Number(selections.year));
     }
 
     return result;
   }
 
-  function clearCars() {
-    let carContainers = main.childNodes;
+  //Clears the child nodes from the first match of the selector passed in
+  function clearNodes(selector) {
+    let children = document.querySelector(selector).childNodes;
 
-    while (carContainers.length > 0) {
-      carContainers[0].remove();
+    while (children.length > 0) {
+      children[0].remove();
     }
   }
 
+  //Renders all cars in the array passed in
   function renderCars(carsArr) {
     carsArr.forEach((car) => {
       let container = document.createElement("div");
@@ -159,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //Create and add cars
   renderCars(cars);
 
+  //Filter form submission event, re-renders cars on page
   filterForm.addEventListener("submit", (event) => {
     event.preventDefault();
     let filterSelections = {
@@ -170,9 +175,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let filteredCars = getFilteredCars(filterSelections);
 
-    console.log(filteredCars);
-
-    clearCars();
+    clearNodes("main");
     renderCars(filteredCars);
+  });
+
+  //When the make option is selected filter the model select to only include corresponding options
+  makeSelect.addEventListener("change", () => {
+    let selectedMake = makeSelect.value;
+
+    if (selectedMake === "all") {
+      createOptions(models).forEach((opt) => modelSelect.appendChild(opt));
+      return;
+    }
+
+    let filteredModels = cars.filter(
+      (car) => car.make.toLowerCase() === selectedMake
+    );
+    filteredModels = getUniquePropertyArr(filteredModels, "model");
+    filteredModels.sort();
+    filteredModels.unshift("All");
+
+    let filteredOptions = createOptions(filteredModels);
+    clearNodes("#model");
+    filteredOptions.forEach((opt) => modelSelect.appendChild(opt));
+    modelSelect.value = "all";
   });
 });

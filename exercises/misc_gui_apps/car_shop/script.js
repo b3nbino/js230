@@ -76,6 +76,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function getFilteredCars(selections) {
+    let result = cars.slice();
+
+    if (selections.make !== "All") {
+      console.log(selections.make);
+
+      result = result.filter(
+        (obj) => obj.make.toLowerCase() === selections.make
+      );
+    }
+
+    if (selections.model !== "All") {
+      result = result.filter(
+        (obj) => obj.model.toLowerCase() === selections.model
+      );
+    }
+
+    if (selections.price !== "All") {
+      result = result.filter((obj) => obj.price === Number(selections.price));
+    }
+
+    if (selections.year !== "All") {
+      result = result.filter((obj) => obj.year === Number(selections.year));
+    }
+
+    return result;
+  }
+
+  function clearCars() {
+    let carContainers = main.childNodes;
+
+    while (carContainers.length > 0) {
+      carContainers[0].remove();
+    }
+  }
+
   function renderCars(carsArr) {
     carsArr.forEach((car) => {
       let container = document.createElement("div");
@@ -122,4 +158,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Create and add cars
   renderCars(cars);
+
+  filterForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let filterSelections = {
+      make: makeSelect.value,
+      model: modelSelect.value,
+      price: priceSelect.value,
+      year: yearSelect.value,
+    };
+
+    let filteredCars = getFilteredCars(filterSelections);
+
+    console.log(filteredCars);
+
+    clearCars();
+    renderCars(filteredCars);
+  });
 });

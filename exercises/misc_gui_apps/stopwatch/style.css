@@ -3,3 +3,37 @@
   border: 0;
   padding: 0;
 }
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 2px 2px 5px #703e3b;
+  background-color: #c84648;
+  color: #fff3db;
+  text-align: center;
+}
+
+main h1 {
+  font-size: 64px;
+  margin-top: 25%;
+}
+
+main button {
+  margin-top: 48px;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #fff3db;
+  color: #703e3b;
+  border: 2px solid #703e3b;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 2px 2px 5px #703e3b;
+}
+
+main button:hover {
+  cursor: pointer;
+  background-color: #d3c8b4;
+}
+
+#start-stop {
+  margin-right: 12px;
+}

@@ -10,11 +10,12 @@ body {
   background-color: #c84648;
   color: #fff3db;
   text-align: center;
+  min-width: 480px;
 }
 
 main h1 {
   font-size: 64px;
-  margin-top: 25%;
+  margin-top: 200px;
 }
 
 main button {

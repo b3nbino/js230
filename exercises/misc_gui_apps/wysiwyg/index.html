@@ -4,8 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Text Editor</title>
+    <script
+      src="https://kit.fontawesome.com/3baf924d3f.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js"></script>
   </head>
-  <body></body>
+  <body>
+    <h1>Rich Text Editor</h1>
+    <div id="editor">
+      <div id="buttons">
+        <button id="bold" class="fa-solid fa-bold"></button>
+        <button id="italicise" class="fa-solid fa-italic"></button>
+        <button id="underline" class="fa-solid fa-underline"></button>
+        <button id="strikethrough" class="fa-solid fa-strikethrough"></button>
+        <button id="link" class="fa-solid fa-link"></button>
+        <button id="unordered-list" class="fa-solid fa-list-ul"></button>
+        <button id="ordered-list" class="fa-solid fa-list-ol"></button>
+        <button id="align-left" class="fa-solid fa-align-left"></button>
+        <button id="align-center" class="fa-solid fa-align-center"></button>
+        <button id="align-right" class="fa-solid fa-align-right"></button>
+        <button id="align-justify" class="fa-solid fa-align-justify"></button>
+      </div>
+      <div id="text-box" contenteditable="true">
+        <br />
+      </div>
+    </div>
+  </body>
 </html>

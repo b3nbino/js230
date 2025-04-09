@@ -21,6 +21,7 @@ h1 {
   min-width: 780px;
   max-width: 780px;
   margin: auto;
+  box-shadow: 3px 3px 5px #31273677;
 }
 
 #buttons {
@@ -53,14 +54,23 @@ h1 {
   box-sizing: border-box;
   overflow: auto;
   height: 480px;
-  padding: 5px;
+  padding: 12px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  box-shadow: 3px 3px 5px #31273677;
   background-color: #ebcaca;
   font-size: 18px;
 }
 
 #text-box:focus {
   outline: none;
+}
+
+#text-box ul {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+#text-box ol {
+  margin: 8px 0;
+  padding-left: 24px;
 }

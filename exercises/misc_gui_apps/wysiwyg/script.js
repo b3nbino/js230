@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
 
-    event.target.classList.toggle("active");
+    // event.target.classList.toggle("active");
   });
 
   function deactivateButtons() {
@@ -62,43 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  textBox.addEventListener("click", (event) => {
+  function activateButtons() {
     deactivateButtons();
 
-    let elem = event.target;
-    let effects = [];
+    let allButtons = buttons.children;
 
-    while (elem.id !== "text-box") {
-      effects.push(elem.localName);
-      elem = elem.parentElement;
+    for (let i = 0; i < allButtons.length; i++) {
+      if (document.queryCommandState(allButtons[i].id)) {
+        allButtons[i].classList.add("active");
+      }
     }
+  }
 
-    if (effects.includes("b")) {
-      bold.classList.add("active");
-    }
-
-    if (effects.includes("i")) {
-      italic.classList.add("active");
-    }
-
-    if (effects.includes("u")) {
-      underline.classList.add("active");
-    }
-
-    if (effects.includes("strike")) {
-      strikeThrough.classList.add("active");
-    }
-
-    if (effects.includes("a")) {
-      link.classList.add("active");
-    }
-
-    if (effects.includes("ul")) {
-      ul.classList.add("active");
-    }
-
-    if (effects.includes("ol")) {
-      ol.classList.add("active");
-    }
-  });
+  textBox.addEventListener("click", activateButtons);
+  textBox.addEventListener("keydown", activateButtons);
 });

@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
 
-    // event.target.classList.toggle("active");
+    event.target.classList.toggle("active");
   });
 
   function deactivateButtons() {

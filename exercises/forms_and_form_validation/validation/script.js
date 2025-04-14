@@ -49,15 +49,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document
     .getElementById("firstName")
-    .addEventListener("keydown", disableNonAlphabetic);
+    .addEventListener("keypress", disableNonAlphabetic);
 
   document
     .getElementById("lastName")
-    .addEventListener("keydown", disableNonAlphabetic);
+    .addEventListener("keypress", disableNonAlphabetic);
 
   document
     .getElementById("phone")
     .addEventListener("keydown", disableAlphabetic);
+
+  let creditInputs = document.querySelectorAll(".credit");
+
+  for (let i = 0; i < creditInputs.length; i++) {
+    creditInputs[i].addEventListener("keydown", disableAlphabetic);
+  }
 
   //Determines the appropriate status for an input when clicking away from the input
   function checkValidity(event) {
@@ -105,14 +111,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Stop digits and symbols from being entered into name inputs
   function disableNonAlphabetic(event) {
-    if (!/[a-zA-Z'\s]/.test(event.key)) {
+    if (event.key.length === 1 && !/[a-zA-Z'\s]/.test(event.key)) {
       event.preventDefault();
     }
   }
 
   //Stop letters and symbols (excluding "-") from being entered into numeric inputs
   function disableAlphabetic(event) {
-    if (!/(\d|Backspace|-)/.test(event.key)) {
+    if (event.key.length === 1 && !/(\d|Backspace|-)/.test(event.key)) {
       event.preventDefault();
     }
   }

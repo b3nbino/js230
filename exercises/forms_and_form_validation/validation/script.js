@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   let form = document.getElementById("signUp");
 
+  //Check input validity when user clicks off
   form.addEventListener("focusout", checkValidity);
 
   //When an input is clicked, remove the invalid status and error message
@@ -46,6 +47,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  document
+    .getElementById("firstName")
+    .addEventListener("keydown", disableNonAlphabetic);
+
+  document
+    .getElementById("lastName")
+    .addEventListener("keydown", disableNonAlphabetic);
+
+  document
+    .getElementById("phone")
+    .addEventListener("keydown", disableAlphabetic);
+
   //Determines the appropriate status for an input when clicking away from the input
   function checkValidity(event) {
     //Guard clause
@@ -83,6 +96,20 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (document.querySelectorAll(".invalid").length === 0) {
       //Remove submition error message when all inputs are valid
       document.getElementById("submitError").textContent = "";
+    }
+  }
+
+  //Stop digits and symbols from being entered into name inputs
+  function disableNonAlphabetic(event) {
+    if (!/[a-zA-Z'\s]/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  //Stop letters and symbols (excluding "-") from being entered into numeric inputs
+  function disableAlphabetic(event) {
+    if (!/(\d|Backspace|-)/.test(event.key)) {
+      event.preventDefault();
     }
   }
 });

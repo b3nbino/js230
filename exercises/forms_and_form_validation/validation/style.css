@@ -18,7 +18,6 @@ form {
   box-sizing: border-box;
   background-color: #ff9d2e;
   width: 480px;
-  height: 560px;
   margin: 12px auto 0 auto;
   border: 6px solid #919167;
   border-radius: 12px;
@@ -48,16 +47,28 @@ input {
   outline: none;
 }
 
+input.credit {
+  display: inline-block;
+  width: 20%;
+}
+
 input.invalid {
   border: 3px solid red;
   background-color: rgb(255, 99, 99);
 }
 
 label {
+  display: block;
   font-size: 20px;
   margin-bottom: 8px;
   color: #f56218;
   text-shadow: 1px 1px 1px rgb(120, 0, 0);
+}
+
+.hyphen {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 6px;
 }
 
 button {

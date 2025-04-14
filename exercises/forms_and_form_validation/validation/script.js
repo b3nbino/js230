@@ -62,7 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
   //Determines the appropriate status for an input when clicking away from the input
   function checkValidity(event) {
     //Guard clause
-    if (event.target.tagName !== "INPUT") return;
+    if (
+      event.target.tagName !== "INPUT" ||
+      event.target.classList.contains("credit")
+    )
+      return;
 
     let valid = true;
     let input = event.target;

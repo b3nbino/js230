@@ -1,51 +1,87 @@
 document.addEventListener("DOMContentLoaded", () => {
   let form = document.getElementById("signUp");
-  let submit = document.querySelector("button");
 
   form.addEventListener("focusout", checkValidity);
-  form.addEventListener("focusin", (event) => {
-    if (event.target.tagName !== "INPUT") return;
 
+  //When an input is clicked, remove the invalid status and error message
+  form.addEventListener("focusin", (event) => {
+    //Guard clause
+    if (
+      event.target.tagName !== "INPUT" ||
+      !event.target.classList.contains("invalid")
+    )
+      return;
+
+    //Remove invalid status
     event.target.classList.remove("invalid");
-    event.target.previousElementSibling.textContent =
-      event.target.previousElementSibling.textContent.replace(" Required", "");
+
+    //Remove error message
+    let label = event.target.previousElementSibling.textContent;
+    event.target.previousElementSibling.textContent = label.slice(
+      0,
+      label.indexOf(":") + 1
+    );
   });
+
+  //When submmitting make sure all fields are checked for errors first
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    //Get inputs
     let inputs = document.querySelectorAll("input");
 
+    //Dispatch a focusin and focusout event to each input to check their validity
     for (let i = 0; i < inputs.length; i++) {
+      inputs[i].dispatchEvent(new Event("focusin", { bubbles: true }));
       inputs[i].dispatchEvent(new Event("focusout", { bubbles: true }));
     }
 
+    //If there are still errors display an error message at the top of the page
     if (document.querySelectorAll(".invalid").length > 0) {
       document.getElementById("submitError").textContent =
         "Please fix any errors before submitting";
       return;
+    } else {
+      //Submit the form
     }
   });
 
+  //Determines the appropriate status for an input when clicking away from the input
   function checkValidity(event) {
+    //Guard clause
     if (event.target.tagName !== "INPUT") return;
+
     let valid = true;
     let input = event.target;
+    let errorMessage;
 
+    //Check for errors and set appropriate error message
     if (
-      (input.value.length === 0 && input.id !== "phone") ||
-      (input.id === "password" && input.value.length < 10) ||
-      (input.id === "phone" &&
-        input.value.length > 0 &&
-        !/\d\d\d-\d\d\d-\d\d\d\d/.test(input.value)) ||
-      (input.id === "email" && !/.+@.+/gi.test(input.value))
+      input.id === "phone" &&
+      input.value.length > 0 &&
+      !/\d\d\d-\d\d\d-\d\d\d\d/.test(input.value)
     ) {
       valid = false;
+      errorMessage = "Enter number in ***-***-**** format";
+    } else if (input.value.length === 0 && input.id !== "phone") {
+      if (input.id === "password" && input.value.length < 10) {
+        valid = false;
+        errorMessage = "Password must be at least 10 characters";
+      } else {
+        valid = false;
+        errorMessage = "This field is required";
+      }
+    } else if (input.id === "email" && !/.+@.+/i.test(input.value)) {
+      valid = false;
+      errorMessage = "Please enter a valid e-mail";
     }
 
     if (!valid) {
+      //Add invalid class to input and error messge to label
       input.classList.add("invalid");
-      input.previousElementSibling.textContent += " Required";
+      input.previousElementSibling.textContent += " " + errorMessage;
     } else if (document.querySelectorAll(".invalid").length === 0) {
+      //Remove submition error message when all inputs are valid
       document.getElementById("submitError").textContent = "";
     }
   }

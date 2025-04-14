@@ -7,21 +7,21 @@ document.addEventListener("DOMContentLoaded", () => {
   //When an input is clicked, remove the invalid status and error message
   form.addEventListener("focusin", (event) => {
     //Guard clause
-    if (
-      event.target.tagName !== "INPUT" ||
-      !event.target.classList.contains("invalid")
-    )
-      return;
+    if (event.target.tagName !== "INPUT") return;
 
     //Remove invalid status
     event.target.classList.remove("invalid");
 
     //Remove error message
-    let label = event.target.previousElementSibling.textContent;
-    event.target.previousElementSibling.textContent = label.slice(
-      0,
-      label.indexOf(":") + 1
-    );
+
+    //Find label
+    let label = event.target.previousElementSibling;
+    while (label.tagName !== "LABEL") {
+      label = label.previousElementSibling;
+    }
+
+    let message = label.textContent;
+    label.textContent = message.slice(0, message.indexOf(":") + 1);
   });
 
   //When submmitting make sure all fields are checked for errors first
@@ -62,17 +62,28 @@ document.addEventListener("DOMContentLoaded", () => {
   let creditInputs = document.querySelectorAll(".credit");
 
   for (let i = 0; i < creditInputs.length; i++) {
-    creditInputs[i].addEventListener("keydown", disableAlphabetic);
+    //Disable letters
+    //Move focus when maxlength is reached
+    if (i < creditInputs.length - 1) {
+      creditInputs[i].addEventListener("keydown", (event) => {
+        disableAlphabetic(event);
+
+        setTimeout(() => {
+          if (creditInputs[i].value.length === 4) {
+            creditInputs[i + 1].focus();
+            creditInputs[i + 1].select();
+          }
+        }, 0);
+      });
+    } else {
+      creditInputs[i].addEventListener("keypress", disableAlphabetic);
+    }
   }
 
   //Determines the appropriate status for an input when clicking away from the input
   function checkValidity(event) {
     //Guard clause
-    if (
-      event.target.tagName !== "INPUT" ||
-      event.target.classList.contains("credit")
-    )
-      return;
+    if (event.target.tagName !== "INPUT") return;
 
     let valid = true;
     let input = event.target;
@@ -86,7 +97,18 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       valid = false;
       errorMessage = "Enter number in ***-***-**** format";
-    } else if (input.value.length === 0 && input.id !== "phone") {
+    } else if (
+      input.classList.contains("credit") &&
+      input.value.length > 0 &&
+      !/\d\d\d\d/.test(input.value)
+    ) {
+      valid = false;
+      errorMessage = "Please enter a valid credit card number";
+    } else if (
+      input.value.length === 0 &&
+      input.id !== "phone" &&
+      !input.classList.contains("credit")
+    ) {
       if (input.id === "password" && input.value.length < 10) {
         valid = false;
         errorMessage = "Password must be at least 10 characters";
@@ -102,7 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!valid) {
       //Add invalid class to input and error messge to label
       input.classList.add("invalid");
-      input.previousElementSibling.textContent += " " + errorMessage;
+
+      //Find label
+      let label = input.previousElementSibling;
+      while (label.tagName !== "LABEL") {
+        label = label.previousElementSibling;
+      }
+
+      label.textContent += " " + errorMessage;
     } else if (document.querySelectorAll(".invalid").length === 0) {
       //Remove submition error message when all inputs are valid
       document.getElementById("submitError").textContent = "";

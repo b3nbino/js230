@@ -3,3 +3,58 @@
   padding: 0;
   border: 0;
 }
+
+body {
+  background-color: #acce91;
+  color: #373737;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+main {
+  width: 720px;
+  margin: 24px auto;
+}
+
+form {
+  padding: 30px;
+  background-color: #8db986;
+  border-radius: 12px;
+  box-shadow: 1px 1px 3px #373737;
+  font-size: 18px;
+}
+
+form fieldset {
+  margin-bottom: 24px;
+}
+
+form fieldset + fieldset {
+  margin: 24px 0;
+}
+
+form ul li {
+  list-style-type: none;
+  margin: 6px;
+}
+
+input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #efeae4;
+  background-color: #efeae4;
+  border-radius: 50%;
+  box-shadow: 1px 1px 1px #373737;
+}
+
+input:checked {
+  border: 4px solid #badb73;
+}
+
+form button#submit {
+  background-color: #badb73;
+}
+
+form button#reset {
+  background-color: #efeae4;
+}

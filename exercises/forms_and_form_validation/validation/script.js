@@ -43,7 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "Please fix any errors before submitting";
       return;
     } else {
-      //Submit the form
+      let formData = new FormData(form);
+      let urlEncoded = new URLSearchParams(formData);
+
+      urlEncoded.set("credit", urlEncoded.getAll("credit").join(""));
+
+      let urlEncodedElement = document.createElement("p");
+      urlEncodedElement.textContent = urlEncoded.toString();
+
+      document.getElementById("results").appendChild(urlEncodedElement);
     }
   });
 

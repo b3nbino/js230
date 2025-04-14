@@ -88,3 +88,8 @@ button {
 button:hover {
   cursor: pointer;
 }
+
+#results {
+  text-align: center;
+  margin: 24px auto;
+}

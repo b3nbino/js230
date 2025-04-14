@@ -11,20 +11,27 @@
     <h1 id="submitError"></h1>
     <form id="signUp">
       <label for="firstName">First Name:</label>
-      <input novalidate type="text" id="firstName" />
+      <input novalidate type="text" name="firstName" id="firstName" />
       <label for="lastName">Last Name:</label>
-      <input novalidate type="text" id="lastName" />
+      <input novalidate type="text" id="lastName" name="lastName" />
       <label for="email">E-mail Address:</label>
       <input
         novalidate
         type="email"
         id="email"
         placeholder="email@example.com"
+        name="email"
       />
       <label for="password">Password:</label>
-      <input novalidate type="password" id="password" />
+      <input novalidate type="password" id="password" name="password" />
       <label for="phone">Phone:</label>
-      <input novalidate type="tel" id="phone" placeholder="111-222-3333" />
+      <input
+        novalidate
+        type="tel"
+        id="phone"
+        placeholder="111-222-3333"
+        name="phone"
+      />
       <fieldset id="creditCard">
         <label for="credit">Credit Card:</label>
         <input maxlength="4" name="credit" novalidate class="credit" />
@@ -37,5 +44,8 @@
       </fieldset>
       <button type="submit">Sign Up</button>
     </form>
+    <div id="results">
+      <h1>Serialized Form</h1>
+    </div>
   </body>
 </html>

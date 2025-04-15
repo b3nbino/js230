@@ -25,11 +25,7 @@ form {
 }
 
 form fieldset {
-  margin-bottom: 24px;
-}
-
-form fieldset + fieldset {
-  margin: 24px 0;
+  margin-bottom: 12px;
 }
 
 .choice {
@@ -80,10 +76,34 @@ form button#submit:hover {
   background-color: #a1c15b;
 }
 
+form button#submit:disabled {
+  background-color: #95aa67;
+  cursor: default;
+}
+
 form button#reset {
   background-color: #efeae4;
 }
 
 form button#reset:hover {
   background-color: #d8d0c5;
+}
+
+.no-choice {
+  display: none;
+}
+
+.answer {
+  display: none;
+  margin-bottom: 24px;
+  padding-left: 6px;
+  border-radius: 6px;
+}
+
+.correct {
+  border: 2px solid #abd451;
+}
+
+.wrong {
+  border: 2px solid rgb(255, 80, 80);
 }

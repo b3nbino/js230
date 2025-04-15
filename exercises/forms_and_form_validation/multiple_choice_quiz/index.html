@@ -21,16 +21,21 @@
             Q{{id}}. {{description}}
           </legend>
           {{> choices id=id }}
+          <div id="answer{{id}}" class="answer"><br></div>
         </fieldset>
-        {{/each}}
+      {{/each}}
     </script>
     <script type="text/x-handlebars-template" id="choices-partial">
       {{#each options}}
         <div class="choice">
-          <input type="radio" id="q{{../id}}choice{{@index}}" name="q{{../id}}" />
+          <input type="radio" id="q{{../id}}choice{{@index}}" name="q{{../id}}" value="{{this}}" />
           <label for="q{{../id}}choice{{@index}}">{{this}}</label>
         </div>
-      {{/each}}
+        {{/each}}
+        <div class="no-choice">
+          <input type="radio" id="q{{id}}no-choice" name="q{{id}}" value="null" checked/>
+          <label for="q{{id}}no-choice"></label>
+        </div>
     </script>
     <main>
       <h1>Multiple Choice Quiz</h1>

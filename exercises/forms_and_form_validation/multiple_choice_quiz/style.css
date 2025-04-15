@@ -44,6 +44,7 @@ input {
   background-color: #efeae4;
   border-radius: 50%;
   box-shadow: 1px 1px 1px #373737;
+  margin-right: 6px;
 }
 
 input:checked {
@@ -51,7 +52,24 @@ input:checked {
 }
 
 input:hover {
+  cursor: pointer;
   border: 4px solid #95aa67;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+form button {
+  color: #373737;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 2px 2px 3px #373737;
+}
+
+form button:hover {
+  cursor: pointer;
 }
 
 form button#submit {

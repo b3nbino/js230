@@ -12,16 +12,53 @@
       <h1>Multiple Choice Quiz</h1>
       <form id="quiz">
         <fieldset id="q1">
-          <label for="q1"
-            >Q1. Who is the author of The Hitchhiker's Guide to the
-            Galaxy?</label
-          >
-          <ul>
-            <li><input type="radio" name="q1" /> Dan Simmons</li>
-            <li><input type="radio" name="q1" /> Douglas Adams</li>
-            <li><input type="radio" name="q1" /> Stephen Fry</li>
-            <li><input type="radio" name="q1" /> Robert A. Heinlein</li>
-          </ul>
+          <legend>
+            Q1. Who is the author of The Hitchhiker's Guide to the Galaxy?
+          </legend>
+          <input type="radio" id="choice1" name="author" />
+          <label for="choice1">Dan Simmons</label>
+          <input type="radio" id="choice2" name="author" />
+          <label for="choice2">Douglas Adams</label>
+          <input type="radio" id="choice3" name="author" />
+          <label for="choice3">Stephen Fry</label>
+          <input type="radio" id="choice4" name="author" />
+          <label for="choice4">Robert A. Heinlein</label>
+        </fieldset>
+        <fieldset id="q2">
+          <legend>
+            Q2. Which of the following numbers is the answer to Life, the
+            universe and everything?
+          </legend>
+          <input type="radio" id="choice1" name="number" />
+          <label for="choice1">66</label>
+          <input type="radio" id="choice2" name="number" />
+          <label for="choice2">13</label>
+          <input type="radio" id="choice3" name="number" />
+          <label for="choice3">111</label>
+          <input type="radio" id="choice4" name="number" />
+          <label for="choice4">42</label>
+        </fieldset>
+        <fieldset id="q3">
+          <legend>Q3. What is Pan Galactic Gargle Blaster?</legend>
+          <input type="radio" id="choice1" name="drink" />
+          <label for="choice1">A drink</label>
+          <input type="radio" id="choice2" name="drink" />
+          <label for="choice2">A machine</label>
+          <input type="radio" id="choice3" name="drink" />
+          <label for="choice3">A creature</label>
+          <input type="radio" id="choice4" name="drink" />
+          <label for="choice4">None of the above</label>
+        </fieldset>
+        <fieldset id="q4">
+          <legend>Q4. Which star system does Ford Prefect belong to?</legend>
+          <input type="radio" id="choice1" name="planet" />
+          <label for="choice1">Aldebaran</label>
+          <input type="radio" id="choice2" name="planet" />
+          <label for="choice2">Algol</label>
+          <input type="radio" id="choice3" name="planet" />
+          <label for="choice3">Betelgeuse</label>
+          <input type="radio" id="choice4" name="planet" />
+          <label for="choice4">Alpha Centarui</label>
         </fieldset>
         <button type="submit" id="submit">Submit Quiz</button>
         <button type="reset" id="reset">Reset</button>

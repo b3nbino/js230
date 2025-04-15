@@ -32,11 +32,6 @@ form fieldset + fieldset {
   margin: 24px 0;
 }
 
-form ul li {
-  list-style-type: none;
-  margin: 6px;
-}
-
 input {
   appearance: none;
   width: 16px;

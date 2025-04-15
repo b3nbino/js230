@@ -32,6 +32,10 @@ form fieldset + fieldset {
   margin: 24px 0;
 }
 
+.choice {
+  margin: 12px 0;
+}
+
 input {
   appearance: none;
   width: 16px;
@@ -44,6 +48,10 @@ input {
 
 input:checked {
   border: 4px solid #badb73;
+}
+
+input:hover {
+  border: 4px solid #95aa67;
 }
 
 form button#submit {

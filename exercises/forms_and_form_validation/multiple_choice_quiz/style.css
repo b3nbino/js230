@@ -76,6 +76,14 @@ form button#submit {
   background-color: #badb73;
 }
 
+form button#submit:hover {
+  background-color: #a1c15b;
+}
+
 form button#reset {
   background-color: #efeae4;
+}
+
+form button#reset:hover {
+  background-color: #d8d0c5;
 }

@@ -1,8 +1,7 @@
 const questions = [
   {
     id: 1,
-    description:
-      "Who is the author of <cite>The Hitchhiker's Guide to the Galaxy</cite>?",
+    description: "Who is the author of The Hitchhiker's Guide to the Galaxy?",
     options: [
       "Dan Simmons",
       "Douglas Adams",
@@ -36,4 +35,16 @@ const answerKey = {
   4: "Betelgeuse",
 };
 
-document.addEventListener("DOMContentLoaded", () => {});
+document.addEventListener("DOMContentLoaded", () => {
+  let questionTemplate = Handlebars.compile(
+    document.getElementById("question-template").getHTML()
+  );
+  Handlebars.registerPartial(
+    "choices",
+    document.getElementById("choices-partial").getHTML()
+  );
+
+  let quiz = questionTemplate({ questions });
+
+  document.getElementById("questions").innerHTML = quiz;
+});

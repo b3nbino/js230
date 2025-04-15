@@ -15,26 +15,27 @@
   </head>
   <body>
     <script type="text/x-handlebars-template" id="question-template">
-      {{each questions}}
+      {{#each questions}}
         <fieldset id="q{{id}}">
           <legend>
             Q{{id}}. {{description}}
           </legend>
-          {{each options}}
-            {{> choices}}
-          {{/each}}
+          {{> choices id=id }}
         </fieldset>
-      {{/each}}
+        {{/each}}
     </script>
     <script type="text/x-handlebars-template" id="choices-partial">
-      <div class="choice">
-        <input type="radio" id="q{{id}}choice{{@index}}" name="{{id}}" />
-        <label for="q{{id}}choice{{@index}}">{{this}}</label>
-      </div>
+      {{#each options}}
+        <div class="choice">
+          <input type="radio" id="q{{../id}}choice{{@index}}" name="q{{../id}}" />
+          <label for="q{{../id}}choice{{@index}}">{{this}}</label>
+        </div>
+      {{/each}}
     </script>
     <main>
       <h1>Multiple Choice Quiz</h1>
       <form id="quiz">
+        <div id="questions"></div>
         <button type="submit" id="submit">Submit Quiz</button>
         <button type="reset" id="reset">Reset</button>
       </form>

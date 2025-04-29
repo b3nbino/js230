@@ -7,10 +7,23 @@
     <title>Document</title>
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/handlebars.js"></script>
+    <link
+      rel="stylesheet"
+      href="/contact_manager_node/public/stylesheets/style.css"
+    />
   </head>
   <body>
     <header>
-      <h1>Contact Manager</h1>
+      <h1><a href="#home">Contact Manager</a></h1>
     </header>
+    <nav>
+      <button class="add btn">Add Contact</button>
+      <input type="text" placeholder="Search" id="searchbar" />
+    </nav>
+    <section>
+      <h2>No contacts found.</h2>
+      <button class="add btn">Add Contact</button>
+    </section>
+    <main id="contacts"></main>
   </body>
 </html>

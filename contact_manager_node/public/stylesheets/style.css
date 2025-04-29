@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  --base-color: #e9f2f9;
+  --text-color: #1b325f;
+  --primary-color: #3a89c9;
+  --secondary-color: #9cc4e4;
+  --special-color: #f26c4f;
+}
+
+body {
+  background: linear-gradient(
+      var(--primary-color),
+      var(--base-color) 90%,
+      white
+    )
+    no-repeat;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+}
+
+header {
+  box-sizing: border-box;
+  padding: 16px;
+  text-align: center;
+  background-color: var(--primary-color);
+  box-shadow: 1px 1px 6px var(--primary-color);
+}
+
+header h1 a {
+  text-decoration: none;
+  font-weight: lighter;
+  color: var(--text-color);
+  text-shadow: 1px 1px 1px var(--secondary-color);
+}
+
+nav {
+  display: flex;
+  box-sizing: border-box;
+  padding: 24px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+section {
+  box-sizing: border-box;
+  text-align: center;
+  margin: 48px;
+}
+
+section h2 {
+  margin-bottom: 24px;
+}
+
+section button {
+  margin-bottom: 24px;
+}
+
+.add {
+  font-size: 20px;
+  padding: 16px;
+}
+
+.btn {
+  background-color: var(--base-color);
+  border: 1px solid var(--text-color);
+  border-radius: 6px;
+  color: var(--text-color);
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: var(--text-color);
+  color: var(--base-color);
+}
+
+#searchbar {
+  font-size: 16px;
+  padding: 8px;
+  height: 24px;
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 3px var(--text-color);
+  color: var(--text-color);
+}

@@ -47,15 +47,19 @@ nav {
 section {
   box-sizing: border-box;
   text-align: center;
-  margin: 48px;
 }
 
 section h2 {
-  margin-bottom: 24px;
+  margin: 24px 0;
 }
 
-section button {
-  margin-bottom: 24px;
+.btn {
+  padding: 8px;
+  font-size: 16px;
+  background-color: var(--base-color);
+  border: 1px solid var(--text-color);
+  border-radius: 6px;
+  color: var(--text-color);
 }
 
 .add {
@@ -63,17 +67,15 @@ section button {
   padding: 16px;
 }
 
-.btn {
-  background-color: var(--base-color);
-  border: 1px solid var(--text-color);
-  border-radius: 6px;
-  color: var(--text-color);
-}
-
 .btn:hover {
   cursor: pointer;
   background-color: var(--text-color);
   color: var(--base-color);
+}
+
+input {
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 3px var(--text-color);
 }
 
 #searchbar {
@@ -83,4 +85,35 @@ section button {
   border-radius: 3px;
   box-shadow: inset 1px 1px 3px var(--text-color);
   color: var(--text-color);
+}
+
+#add-contacts {
+  width: 720px;
+  margin: auto;
+  margin-bottom: 24px;
+}
+
+#add-contacts form {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+#add-contacts label {
+  align-self: flex-start;
+  font-size: 20px;
+}
+
+#add-contacts input {
+  margin-bottom: 18px;
+  font-size: 16px;
+  padding: 6px;
+}
+
+.buttons button {
+  width: 357px;
+}
+
+.hide {
+  display: none;
 }

@@ -4,26 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Contact Manager</title>
     <script src="./javascripts/jquery.js"></script>
     <script src="./javascripts/handlebars.js"></script>
-    <link
-      rel="stylesheet"
-      href="/contact_manager_node/public/stylesheets/style.css"
-    />
+    <script src="./javascripts/script.js"></script>
+    <link rel="stylesheet" href="./stylesheets/style.css" />
   </head>
   <body>
     <header>
       <h1><a href="#home">Contact Manager</a></h1>
     </header>
     <nav>
-      <button class="add btn">Add Contact</button>
+      <button type="submit" class="add btn">Add Contact</button>
       <input type="text" placeholder="Search" id="searchbar" />
     </nav>
-    <section>
+    <section id="no-contacts">
       <h2>No contacts found.</h2>
-      <button class="add btn">Add Contact</button>
+      <button type="submit" class="add btn">Add Contact</button>
     </section>
     <main id="contacts"></main>
+    <section id="add-contacts" class="hide">
+      <form action="/contacts" method="post">
+        <h2>Create Contact</h2>
+        <label for="name">Full name:</label>
+        <input type="text" name="name" id="name" />
+        <label for="email">Email address:</label>
+        <input type="email" name="email" id="email" />
+        <label for="phone">Telephone number:</label>
+        <input type="tel" name="phone" id="phone" />
+        <div class="buttons">
+          <button id="submit-contact" class="btn" type="submit">Submit</button>
+          <button id="cancel" class="btn" type="button">Cancel</button>
+        </div>
+      </form>
+    </section>
   </body>
 </html>

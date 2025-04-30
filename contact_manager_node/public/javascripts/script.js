@@ -7,10 +7,32 @@ document.addEventListener("DOMContentLoaded", () => {
   let cancel = document.getElementById("cancel");
   let createForm = document.getElementById("create");
 
+  async function renderContacts() {
+    let contacts = await fetch("/api/contacts").then((res) => res.json());
+
+    if (contacts.length > 0) {
+      noSection.classList.add("hide");
+
+      let contactTemplateScript = document.getElementById("contact-template");
+      let contactTemplate = Handlebars.compile(contactTemplateScript.innerHTML);
+      let contactsHTML = [];
+
+      for (let i = 0; i < contacts.length; i++) {
+        contactsHTML.push(contactTemplate(contacts[i]));
+      }
+
+      contactsMain.innerHTML = contactsHTML.join("");
+    } else {
+      noSection.classList.remove("hide");
+    }
+  }
+
+  renderContacts();
+
   //Show the add contact page
   for (let i = 0; i < addButtons.length; i++) {
     addButtons[i].addEventListener("click", (event) => {
-      noSection.classList.toggle("hide");
+      noSection.classList.add("hide");
       nav.classList.toggle("hide");
       addSection.classList.toggle("hide");
       contactsMain.classList.toggle("hide");
@@ -19,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Hide the add contact page
   cancel.addEventListener("click", (event) => {
-    noSection.classList.toggle("hide");
     nav.classList.toggle("hide");
     addSection.classList.toggle("hide");
     contactsMain.classList.toggle("hide");
@@ -50,6 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify(json),
     });
 
+    renderContacts();
+    contactsMain.classList.toggle("hide");
+    addSection.classList.toggle("hide");
+    nav.classList.toggle("hide");
     createForm.reset();
   });
 });

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let nav = document.querySelector("nav");
   let addButtons = document.querySelectorAll("button.add");
   let cancel = document.getElementById("cancel");
-  let submit = document.getElementById("submit-contact");
+  let createForm = document.getElementById("create");
 
   //Show the add contact page
   for (let i = 0; i < addButtons.length; i++) {
@@ -23,5 +23,33 @@ document.addEventListener("DOMContentLoaded", () => {
     nav.classList.toggle("hide");
     addSection.classList.toggle("hide");
     contactsMain.classList.toggle("hide");
+  });
+
+  createForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    //Convert form values into object
+    let data = createForm.elements;
+    let json = {};
+
+    for (let i = 0; i < data.length; i++) {
+      let element = data[i];
+      let key = element.name;
+      let value = element.value;
+
+      if (element.type !== "submit") {
+        json[key] = value;
+      }
+    }
+
+    let response = await fetch(createForm.action, {
+      method: createForm.method,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(json),
+    });
+
+    createForm.reset();
   });
 });

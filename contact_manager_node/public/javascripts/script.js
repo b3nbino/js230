@@ -15,14 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let contactTemplateScript = document.getElementById("contact-template");
       let contactTemplate = Handlebars.compile(contactTemplateScript.innerHTML);
-      let contactsHTML = [];
+      let contactsHTML = contactTemplate({ contacts });
 
-      for (let i = 0; i < contacts.length; i++) {
-        contactsHTML.push(contactTemplate(contacts[i]));
-      }
-
-      contactsMain.innerHTML = contactsHTML.join("");
+      contactsMain.innerHTML = contactsHTML;
     } else {
+      contactsMain.innerHTML = null;
       noSection.classList.remove("hide");
     }
   }
@@ -76,5 +73,25 @@ document.addEventListener("DOMContentLoaded", () => {
     addSection.classList.toggle("hide");
     nav.classList.toggle("hide");
     createForm.reset();
+  });
+
+  contactsMain.addEventListener("click", (event) => {
+    if (event.target.tagName !== "BUTTON") {
+      return;
+    }
+
+    let id = event.target.dataset.id;
+
+    if (event.target.classList.contains("edit")) {
+      //Open edit page for contact
+    } else {
+      if (window.confirm("Are you sure you want to delete this contact?")) {
+        fetch(`/api/contacts/${id}`, {
+          method: "DELETE",
+        });
+      }
+    }
+
+    renderContacts();
   });
 });

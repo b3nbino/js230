@@ -39,13 +39,19 @@
       </form>
     </section>
     <script type="text/x-handlebars" id="contact-template">
+      {{#each contacts}}
       <div class="contact">
         <h3>{{full_name}}</h3>
         <h4>Phone Number:</h4>
         <p>{{phone_number}}</p>
         <h4>Email:</h4>
         <p>{{email}}</p>
+        <div class="buttons" >
+          <button data-id="{{id}}" class="btn edit">Edit</button>
+          <button data-id="{{id}}" class="btn delete">Delete</button>
+        </div>
       </div>
+      {{/each}}
     </script>
   </body>
 </html>

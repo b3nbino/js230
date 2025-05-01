@@ -93,24 +93,25 @@ input {
   color: var(--text-color);
 }
 
-#add-contacts {
+#add-contacts,
+#edit-contacts {
   width: 720px;
   margin: auto;
   margin-bottom: 24px;
 }
 
-#add-contacts form {
+form {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
 }
 
-#add-contacts label {
+label {
   align-self: flex-start;
   font-size: 20px;
 }
 
-#add-contacts input {
+input {
   margin-bottom: 18px;
   font-size: 16px;
   padding: 6px;
@@ -136,6 +137,7 @@ main h3 {
   padding: 12px;
   border: 2px dashed var(--primary-color);
   border-radius: 6px;
+  overflow: auto;
 }
 
 .buttons {

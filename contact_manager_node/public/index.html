@@ -34,7 +34,22 @@
         <input type="tel" name="phone_number" id="phone_number" required />
         <div class="buttons">
           <button id="submit-contact" class="btn" type="submit">Submit</button>
-          <button id="cancel" class="btn" type="button">Cancel</button>
+          <button id="cancel-submit" class="btn" type="button">Cancel</button>
+        </div>
+      </form>
+    </section>
+    <section id="edit-contacts" class="hide">
+      <form action="/api/contacts" id="edit">
+        <h2>Edit Contact</h2>
+        <label for="edit-full_name">Full name:</label>
+        <input type="text" name="full_name" id="edit-full_name" required />
+        <label for="edit-email">Email address:</label>
+        <input type="email" name="email" id="edit-email" required />
+        <label for="edit-phone_number">Telephone number:</label>
+        <input type="tel" name="phone_number" id="edit-phone_number" required />
+        <div class="buttons">
+          <button id="edit-contact" class="btn" type="submit">Submit</button>
+          <button id="cancel-edit" class="btn" type="button">Cancel</button>
         </div>
       </form>
     </section>

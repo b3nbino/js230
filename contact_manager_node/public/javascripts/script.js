@@ -9,11 +9,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   let cancelEdit = document.getElementById("cancel-edit");
   let createForm = document.getElementById("create");
   let editForm = document.getElementById("edit");
+  let searchbar = document.getElementById("searchbar");
   let contacts;
   let currId;
 
   async function renderContacts() {
     contacts = await fetch("/api/contacts").then((res) => res.json());
+
+    if (contacts.length > 0) {
+      noSection.classList.add("hide");
+
+      let contactTemplateScript = document.getElementById("contact-template");
+      let contactTemplate = Handlebars.compile(contactTemplateScript.innerHTML);
+      let contactsHTML = contactTemplate({ contacts });
+
+      contactsMain.innerHTML = contactsHTML;
+      contactsMain.classList.remove("hide");
+    } else {
+      contactsMain.innerHTML = null;
+      noSection.classList.remove("hide");
+    }
+  }
+
+  async function searchContacts(query) {
+    contacts = await fetch("/api/contacts")
+      .then((res) => res.json())
+      .then((res) => res.filter((obj) => obj["full_name"].includes(query)));
 
     if (contacts.length > 0) {
       noSection.classList.add("hide");
@@ -154,5 +175,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       renderContacts();
     }
+  });
+
+  //Search bar input
+  searchbar.addEventListener("keyup", (event) => {
+    console.log(searchbar.value);
+    searchContacts(searchbar.value);
   });
 });
